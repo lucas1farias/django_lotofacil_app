@@ -1,0 +1,60 @@
+
+
+{% extends 'main.html' %}
+{% block page-title %}Página de testes{% endblock %}
+{% block content %}
+<style>
+    body {font-size: 2rem;}
+    #age-el {
+      display: none;
+    }
+</style>
+<main id="main-tag">
+    <form action="{% url 'tests' %}" method="get" id="this-form">
+        {% csrf_token %}
+        <div><input type="text" name="test-input" placeholder="Digite algo"></div>
+    </form>
+    <button form="this-form" type="submit">Enviar</button>
+
+    <div>O que foi digitado             || {{ input }}</div>
+    <div>A tamanho do texto digitado    || {{ input|length }}</div>
+    <div>A primeira letra               || {{ input.0 }}</div>
+    <div>Dado externo (ANTES)           || {{ array }}</div>
+    <div>{{ array.pop }}</div>
+    <div>Dado externo alterado (DEPOIS) || {{ array }}</div>
+
+    {% if input == 'js' %}
+      <div>True</div>
+    {% else %}
+      <div>False</div>
+    {% endif %}
+
+    <form action="{% url 'tests' %}" method="get" id="data-age">
+        {% csrf_token %}
+        <div><input type="text" name="age" placeholder="Digite sua idade e clique em enviar"></div>
+
+    </form>
+    <button form="data-age" type="submit">Enviar</button>
+    <div id="age-el" class="hide">{{ age }}</div>
+
+</main>
+<script>
+    document.body.style.backgroundColor = '#222'
+
+    let age = document.getElementById('age-el')
+
+    let inputDay = document.getElementById('input-day')
+    let inputMonth = document.getElementById('input-month')
+    let inputYear = document.getElementById('input-year')
+
+    setInterval(() => {
+      if (age.textContent === '18') {
+        age.style.display = 'inherit'
+        age.style.backgroundImage = 'linear-gradient(purple, green, yellow)'
+        age.style.border = 'black solid 1px'
+        age.style.padding = '1rem'
+      }
+      console.log(inputDay.value, inputMonth.value, inputYear.value)
+    })
+</script>
+{% endblock %}

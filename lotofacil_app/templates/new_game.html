@@ -1,0 +1,66 @@
+
+
+{% extends 'main.html' %}
+
+{% block page-title %}
+  <title>Adicionar novo jogo</title>
+{% endblock %}
+
+{% block tag-link %}
+  <link rel="stylesheet" type="text/css" href="../../static/css/django_lotofacil_app_new_game_styles.css">
+{% endblock %}
+
+{% block body %}
+  <main>
+
+    <section>
+      <div class="cover">
+
+        <h1>Tutorial: adicionar jogo da Lotofácil</h1>
+
+        <ol>
+          <li>Digite o jogo com todos os números espaçados (1 barra de espaço entre cada)</li>
+          <li><span class="highlight">Exemplo:</span> 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15</li>
+        </ol>
+
+        <form action="{% url 'add' %}" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit">Add jogo ao banco</button>
+        </form>
+
+      </div>
+    </section>
+
+    <section>
+      <div class="cover">
+        <h1>Relatório</h1>
+        <ol>
+          <li>Tamanho do banco Django: {{ string_db }} jogos</li>
+        </ol>
+<!--      {% if condition == True %}-->
+<!--        <ol>-->
+<!--          <li>Tamanho do banco manual: {{ manual_tuple_db_size }}</li>-->
+<!--          <li>Tamanho do banco Django: {{ manual_string_db_size }}</li>-->
+<!--          <li>Equivalências entre os bancos encontradas: {{ equivalences_amount }}</li>-->
+<!--        </ol>-->
+<!--        <span style="font-size: 1.5rem; text-shadow: 0 0 7px white;">{{ result }}</span>-->
+<!--      </div>-->
+<!--      <table>-->
+<!--        {% for tuple_ in proof %}-->
+<!--        <tbody>-->
+<!--            <tr>-->
+<!--                <td style="color: white; font-size: .8rem; letter-spacing: .7px;">{{ tuple_ }}</td>-->
+<!--            </tr>-->
+<!--        </tbody>-->
+<!--        {% endfor %}-->
+<!--      </table>-->
+<!--      {% else %}-->
+<!--        <div>{{ reproved }}</div>-->
+<!--      {% endif %}-->
+      </div>
+    </section>
+
+    <script type="text/javascript" src="../../static/js/django_lotofacil_app_new_game_scripts.js"></script>
+  </main>
+{% endblock %}

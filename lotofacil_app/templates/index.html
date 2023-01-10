@@ -1,0 +1,157 @@
+
+
+{% extends 'main.html' %}
+{% block page-title %}
+  <title>Criar jogo - Lotofácil</title>
+{% endblock %}
+
+{% block tag-link %}
+  <link rel="stylesheet" type="text/css" href="../../static/css/django_lotofacil_app_index_styles.css">
+{% endblock %}
+
+{% block body %}
+  <main id="main-tag">
+    <section style="display: none;">
+      <div class="window-properties" style="color: white;"></div>
+    </section>
+    
+    <!-- Tags escondidas no html (se "text.Content" da tag 1 for "True" = Jogo aprovado e o algoritmo para) -->
+    <section id="hidden-elements">
+      <div>
+        <div id="report">{{ report }}</div>
+        <div id="result">{{ result }}</div>
+      </div>
+    </section>
+    
+    <!-- Mudar plano de fundo / Criar novo jogo -->
+    <section>
+      <div class="apply-flex-with-gap">
+        <input type="button" id="change-background" value="Mudar plano de fundo">
+        <input type="button" id="new-game" value="Criar novo jogo">
+      </div>
+    </section>
+
+    <section id="report-messages">
+      <div>
+        <!-- Criando o jogo... -->
+        <div id="reload-msg" class="cover"></div>
+
+        <!-- Condições satisfeitas do jogo: [int/int] -->
+        <div class="query">{{ game_approved }}</div>
+
+        <!-- Condições satisfeitas do jogo em relação ao último: [int/int] -->
+        <div class="query">{{ game_approved_vs_last_game }}</div>
+      </div>
+    </section>
+
+    <!-- Último jogo / Jogo criado -->
+    <section id="featured-games">
+      <div class="apply-flex">
+
+        <!-- Escondidas: pelo seu "textContent" se constrói os dados das tags novas abaixo -->
+        <div class="last-game" style="display: none;">{{ last_game }}</div>
+        <div class="new-game" style="display: none;">{{ game }}</div>
+
+        <!-- Substituídos -->
+        <!-- <div id="last_game" class="cover">Último jogo: {{ last_game }}</div> -->
+        <!-- <div id="game" class="cover">Jogo novo: {{ game }}</div> -->
+
+        <div class="last-game" style="width: 100%; text-align: center;">Último Jogo</div>
+        <div id="last-game-view" class="cover"></div>
+        <div class="game" style="width: 100%; text-align: center;">Novo Jogo</div>
+        <div id="new-game-view" class="cover"></div>
+
+      </div>
+    </section>
+
+    <section>
+      <div class="apply-flex">
+
+        <div id="game-then">Último jogo</div>
+    
+        <!-- Tabela 1 -->
+        <div class="table-1st">
+          <table class="cover">
+            <thead>
+                <tr>
+                  <th>Borda</th>
+                  <th>Centro</th>
+                  <th>Grupo horizontal</th>
+                  <th>Grupo vertical</th>
+                  <th>Primos</th>
+                </tr>
+            </thead>
+      
+            <tbody>
+                <tr>
+                  <td>{{ last_game_edge }}</td>
+                  <td>{{ last_game_center }}</td>
+                  <td>{{ last_game_horizontal_string }}</td>
+                  <td>{{ last_game_vertical_string }}</td>
+                  <td>{{ last_game_prime_numbers }}</td>
+                </tr>
+            </tbody>
+          </table>
+        </div>
+        
+        <div id="game-now">Novo jogo</div>
+        
+        <!-- Tabela 2 -->
+        <div class="table-2nd">
+          <table class="cover">
+            <thead>
+                <tr>
+                  <th>Borda</th>
+                  <th>Centro</th>
+                  <th>Grupo horizontal</th>
+                  <th>Grupo vertical</th>
+                  <th>Primos</th>
+                </tr>
+            </thead>
+      
+            <tbody>
+                <tr>
+                  <td>{{ game_edge }}</td>
+                  <td>{{ game_center }}</td>
+                  <td>{{ horizontal_string }}</td>
+                  <td>{{ vertical_string }}</td>
+                  <td>{{ prime_numbers }}</td>
+                </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </section>
+    
+    <section>
+      <div class="apply-flex">
+        <h1 class="report-title">Relatório</h1>
+        <ol id="game-data">
+          <li><div>Tipo de jogo: <span>{{ game_type }}</span></div></li>
+          <li><div>Código horizontal: <span>{{ horizontal_code }}</span></div></li>
+          <li><div>Código vertical: <span>{{ vertical_code }}</span></div></li>
+          <li><div>Lacunas do jogo: <span>{{ gap }}</span></div></li>
+          <li><div>Sequência de pares e ímpares: <span>{{ odd_even_seq }}</span></div></li>
+          <li><div>Linhas todas diferentes? <span>{{ row_pattern }}</span></div></li>
+          <li><div>Colunas todas diferentes? <span>{{ column_pattern }}</span></div></li>
+          <li><div>Números seguidos (valores 1) <span>{{ sequence_in_row }}</span></div></li>
+          <li><div>Números primos e sua qtd. <span>{{ prime_numbers }}</span></div></li>
+          <li><div>Vezes que fez 15 pontos? <span>{{ 15_void }}</span></div></li>
+          <li><div>Vezes que fez 14 pontos? <span>{{ 14_void }}</span></div></li>
+          <li><div>Vezes que fez 13 pontos? <span>{{ 13_scored }}</span></div></li>
+          <li><div>Possui entre 40% a 70% dos números mais comuns <span>{{ good_numbers_amount }}</span></div></li>
+          <li><div>Similaridades do jogo criado com os últimos jogos <span>{{ proper_intersections }}</span></div></li>
+          <li><div>Qtd. de conjuntos de 3 números seguidos: <span>{{ 3_in_row_amount }}</span></div></li>
+          <li><div>Números de borda entre as qtd. mais comuns <span>{{ game_edge }}</span></div></li>
+          <li><div>Números de centro entre as qtd. mais comuns <span>{{ game_center }}</span></div></li>
+          <li><div>Rank do código horizontal: <span>{{ horizontal_string }}</span></div></li>
+          <li><div>Rank do código vertical: <span>{{ vertical_string }}</span></div></li>
+          <li><div>Números mais comuns a cada posição em relação ao histórico? <span>{{ mistakes_found }}/15</span></div></li>
+          <li><div>Ímpares/Pares <span>{{ odd_even_countage }}</span></div></li>
+        </ol>
+      </div>
+    </section>
+  </main>
+  <script type="text/javascript" src="../../static/js/django_lotofacil_app_index_scripts.js"></script>
+{% endblock %}
